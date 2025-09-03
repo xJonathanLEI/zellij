@@ -222,6 +222,7 @@ impl ZellijPlugin for State {
                 self.mode_info.style.colors,
                 self.mode_info.capabilities,
                 dimmed,
+                self.mode_info.mode == InputMode::Tab,
             );
             is_alternate_tab = !is_alternate_tab;
             all_tabs.push(tab);

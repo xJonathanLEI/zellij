@@ -28,6 +28,7 @@ pub fn render_tab(
     palette: Styling,
     separator: &str,
     dimmed: bool,
+    is_tab_mode: bool,
 ) -> LinePart {
     let focused_clients = tab.other_focused_clients.as_slice();
     let separator_width = separator.width();
@@ -38,7 +39,12 @@ pub fn render_tab(
         palette.ribbon_unselected.background
     };
     let background_color = if tab.active {
-        palette.ribbon_selected.background
+        // Use a different color when in Tab mode to indicate the mode visually
+        if is_tab_mode {
+            palette.ribbon_selected.emphasis_1
+        } else {
+            palette.ribbon_selected.background
+        }
     } else if is_hovered {
         palette.ribbon_unselected.emphasis_1
     } else if is_alternate_tab {
@@ -109,6 +115,7 @@ pub fn tab_style(
     palette: Styling,
     capabilities: PluginCapabilities,
     dimmed: bool,
+    is_tab_mode: bool,
 ) -> LinePart {
     let separator = tab_separator(capabilities);
 
@@ -133,6 +140,7 @@ pub fn tab_style(
         palette,
         separator,
         dimmed,
+        is_tab_mode,
     )
 }
 
